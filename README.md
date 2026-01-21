@@ -55,6 +55,6 @@ ML model trained on carbon footprint datasets. Predicts emissions based on 19 li
 ## Tech Stack
 
 - Python
-- Flask/FastAPI
+- FastAPI
 - scikit-learn/TensorFlow
 - Deployed on Render
