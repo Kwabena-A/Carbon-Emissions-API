@@ -44,6 +44,7 @@ GET /make-prediction/?args=overweight&args=male&args=vegan&args=3&args=coal&args
 {
   "Features" : list[String],
   "prediction": float,
+  "percentile": String
 
 }
 ```
