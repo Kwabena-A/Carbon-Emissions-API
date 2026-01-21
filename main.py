@@ -139,7 +139,7 @@ def read_root():
 
 
 @app.get("/make-prediction/")
-def make_prediction(args: list[str]) -> dict:
+def make_prediction(args: List[str]) -> dict:
     predictor = Predictor(args)
     return {"args": args, "prediction": f"{predictor.getPrediction()}", "percentile" : f"{predictor.getPercentile()}"}
 
