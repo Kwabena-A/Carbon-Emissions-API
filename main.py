@@ -109,10 +109,28 @@ class Predictor:
             columns={"Recycling Score New": "Recycling Score", "Cooking With Score New": "Cooking With Score"},
             inplace=True)
 
-        print(self.df)
+        self.emissions = self.model.predict(self.df)
 
     def getPrediction(self) -> int:
-        return self.model.predict(self.df)
+        return self.emissions
+
+    def getPercentile(self) -> str:
+        newDf = pd.read_csv("Carbon Emission.csv")
+        lessThanSelf = newDf[newDf["CarbonEmission"] > self.emissions[0]]
+
+        percentile = (len(lessThanSelf) / len(newDf)) * 100
+        onesNum = percentile % 10
+        percentile = round(percentile, 0)
+        if onesNum == 1 and onesNum != 11:
+            percentile = f"{int(percentile)}st"
+        elif onesNum == 2 and onesNum != 12:
+            percentile = f"{int(percentile)}nd"
+        elif onesNum == 3 and onesNum != 13:
+            percentile = f"{int(percentile)}rd"
+        else:
+            percentile = f"{int(percentile)}th"
+        return percentile
+
 
 
 @app.get("/")
@@ -121,14 +139,13 @@ def read_root():
 
 
 @app.get("/make-prediction/")
-def make_prediction(args: List[str] = Query(...)):
+def make_prediction(args: list[str]) -> dict:
     predictor = Predictor(args)
-    return {"args": args, "prediction": f"{predictor.getPrediction()}"}
+    return {"args": args, "prediction": f"{predictor.getPrediction()}", "percentile" : f"{predictor.getPercentile()}"}
 
 
 if __name__ == '__main__':
     import uvicorn
-
     uvicorn.run(app)
 
 
