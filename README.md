@@ -4,7 +4,7 @@ Python API for predicting carbon emissions based on user lifestyle and consumpti
 
 ## Live Deployment
 
-Hosted on Render:  `<your-render-url>`
+Hosted on Render:  `carbon-emissions-api.onrender.com`
 
 ## API Endpoint
 
