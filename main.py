@@ -119,8 +119,8 @@ class Predictor:
         lessThanSelf = newDf[newDf["CarbonEmission"] > self.emissions[0]]
 
         percentile = (len(lessThanSelf) / len(newDf)) * 100
-        onesNum = int(percentile % 10)
         percentile = round(percentile, 0)
+        onesNum = percentile % 10
         if onesNum == 1 and onesNum != 11:
             percentile = f"{int(percentile)}st"
         elif onesNum == 2 and onesNum != 12:
